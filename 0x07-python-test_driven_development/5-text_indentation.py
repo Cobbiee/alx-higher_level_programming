@@ -1,22 +1,27 @@
 #!/usr/bin/python3
+
+"""
+This module contains a function that prints a text with 2 new lines after
+"""
+
+
 def text_indentation(text):
-    try:
-        if not isinstance(text, str):
-            raise TypeError("text must be a string")
-        else:
-            c = 0
-            while c < len(text) and text[c] == ' ':
-                c += 1
-            # Dont know what I did right here
-            while c < len(text):
-                print(text[c], end="")
-                if text[c] == "\n" or text[c] in ".?:":
-                    if text[c] in ".?:":
-                        print("\n")
-                    c += 1
-                    while c < len(text) and text[c] == ' ':
-                        c += 1
-                    continue
-                c += 1
-    except Exception as exc:
-        return (exc)
+    """
+    This function prints a text with 2 new lines after each occurrence
+    of the characters: ., ? and :
+
+    Args:
+        text (str): The input text to be processed.
+
+    Raises:
+        TypeError: If the input text is not a string.
+    """
+
+    if type(text) is not str:
+        raise TypeError("text must be a string")
+
+    for delim in ".:?":
+        text = (delim + "\n\n").join(
+            [line.strip(" ") for line in text.split(delim)])
+
+    print(text, end="")
